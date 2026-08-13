@@ -165,7 +165,11 @@ export default function AdminStores() {
           emptyMessage="No stores match these filters."
           renderRow={(s) => (
             <tr key={s.id} className="table-row">
-              <td className="px-4 py-3 font-medium text-ink">{s.name}</td>
+              <td className="px-4 py-3">
+                <span className="font-medium text-ink">
+                  {s.name}
+                </span>
+              </td>
               <td className="px-4 py-3 text-ink/70">{s.email}</td>
               <td className="max-w-xs truncate px-4 py-3 text-ink/70">{s.address}</td>
               <td className="px-4 py-3">
