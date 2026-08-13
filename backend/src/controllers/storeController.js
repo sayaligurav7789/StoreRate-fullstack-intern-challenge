@@ -23,11 +23,29 @@ async function listStoresForUser(req, res, next) {
     const stores = await prisma.store.findMany({
       where,
       orderBy,
-      include: { ratings: true },
+      include: {
+        ratings: {
+          include: { user: { select: { id: true, name: true } } },
+          orderBy: { createdAt: 'desc' },
+        },
+      },
     });
 
     let shaped = stores.map((s) => {
       const userRating = s.ratings.find((r) => r.userId === req.user.id);
+
+      // Show up to 3 most recent written reviews from OTHER users, newest first.
+      const reviews = s.ratings
+        .filter((r) => r.userId !== req.user.id && r.comment)
+        .slice(0, 3)
+        .map((r) => ({
+          id: r.id,
+          value: r.value,
+          comment: r.comment,
+          reviewerName: r.user.name,
+          createdAt: r.createdAt,
+        }));
+
       return {
         id: s.id,
         name: s.name,
@@ -36,6 +54,8 @@ async function listStoresForUser(req, res, next) {
         overallRating: computeAverage(s.ratings),
         totalRatings: s.ratings.length,
         userSubmittedRating: userRating ? userRating.value : null,
+        userSubmittedComment: userRating ? userRating.comment : null,
+        reviews,
       };
     });
 
@@ -75,6 +95,7 @@ async function getStoreOwnerDashboard(req, res, next) {
     const raters = store.ratings.map((r) => ({
       ratingId: r.id,
       value: r.value,
+      comment: r.comment,
       submittedAt: r.createdAt,
       user: r.user,
     }));

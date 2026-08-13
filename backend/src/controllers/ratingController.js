@@ -6,15 +6,18 @@ const prisma = require('../utils/prismaClient');
 async function upsertRating(req, res, next) {
   try {
     const storeId = Number(req.params.storeId);
-    const { value } = req.body;
+    const { value, comment } = req.body;
 
     const store = await prisma.store.findUnique({ where: { id: storeId } });
     if (!store) return res.status(404).json({ message: 'Store not found' });
 
+    // Normalize empty string to null so the DB stores "no comment" consistently.
+    const normalizedComment = comment && comment.trim() ? comment.trim() : null;
+
     const rating = await prisma.rating.upsert({
       where: { userId_storeId: { userId: req.user.id, storeId } },
-      update: { value },
-      create: { value, userId: req.user.id, storeId },
+      update: { value, comment: normalizedComment },
+      create: { value, comment: normalizedComment, userId: req.user.id, storeId },
     });
 
     res.status(200).json({ rating });
