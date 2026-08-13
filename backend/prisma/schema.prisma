@@ -1,0 +1,72 @@
+// Prisma schema for the Store Rating Platform
+// Roles: SYSTEM_ADMIN, NORMAL_USER, STORE_OWNER
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SYSTEM_ADMIN
+  NORMAL_USER
+  STORE_OWNER
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(60)
+  email     String   @unique @db.VarChar(255)
+  password  String
+  address   String   @db.VarChar(400)
+  role      Role     @default(NORMAL_USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // A Store Owner owns exactly one store (1:1). Nullable for other roles.
+  store   Store?  @relation("StoreOwner")
+
+  // Ratings submitted by this user (only relevant for NORMAL_USER, but not restricted at DB level)
+  ratings Rating[]
+
+  @@index([role])
+  @@map("users")
+}
+
+model Store {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(60)
+  email     String   @unique @db.VarChar(255)
+  address   String   @db.VarChar(400)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ownerId Int?  @unique
+  owner   User? @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+
+  ratings Rating[]
+
+  @@map("stores")
+}
+
+model Rating {
+  id        Int      @id @default(autoincrement())
+  value     Int // 1 to 5, enforced at application layer + DB check constraint
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId  Int
+  user    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  storeId Int
+  store   Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  // A user may only submit ONE rating per store (they can update it afterwards)
+  @@unique([userId, storeId])
+  @@index([storeId])
+  @@index([userId])
+  @@map("ratings")
+}
