@@ -9,7 +9,10 @@ const STYLES = {
 export default function Alert({ type = 'info', children }) {
   if (!children) return null;
   return (
-    <div className={`rounded-xl border px-4 py-3 text-sm font-medium ${STYLES[type]}`} role="status">
+    <div
+      className={`animate-[fadeInUp_0.25s_ease-out] rounded-xl border px-4 py-3 text-sm font-medium ${STYLES[type]}`}
+      role="status"
+    >
       {children}
     </div>
   );

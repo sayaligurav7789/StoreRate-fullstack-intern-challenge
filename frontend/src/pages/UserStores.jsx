@@ -72,8 +72,10 @@ export default function UserStores() {
           setSortOrder('asc');
         }
       }}
-      className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-        sortBy === key ? 'bg-brand-600 text-white' : 'bg-white text-ink/60 hover:bg-brand-100'
+      className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
+        sortBy === key
+          ? 'bg-brand-600 text-white shadow-sm'
+          : 'bg-white text-ink/60 hover:bg-brand-100 hover:text-ink'
       }`}
     >
       {label} {sortBy === key && (sortOrder === 'asc' ? '↑' : '↓')}
@@ -81,10 +83,10 @@ export default function UserStores() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10">
+    <div className="mx-auto max-w-6xl px-5 py-10 page-enter">
       <div className="mb-6">
         <p className="stamp-label">Browse</p>
-        <h1 className="mt-1 font-display text-3xl font-semibold text-ink">Registered stores</h1>
+        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-ink">Registered stores</h1>
         <p className="mt-1 text-sm text-ink/60">Search, sort, and rate any store on the platform.</p>
       </div>
 
@@ -123,10 +125,10 @@ export default function UserStores() {
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {stores.map((s) => (
-            <div key={s.id} className="card p-5">
+            <div key={s.id} className="card card-hover p-5">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-ink">{s.name}</h3>
+                  <h3 className="font-display text-lg font-semibold tracking-tight text-ink">{s.name}</h3>
                   <p className="mt-0.5 text-sm text-ink/60">{s.address}</p>
                 </div>
                 <div className="text-right">
@@ -148,9 +150,14 @@ export default function UserStores() {
                     size="md"
                   />
                 </div>
-                {savingId === s.id && <span className="text-xs text-ink/40">Saving…</span>}
+                {savingId === s.id && (
+                  <span className="flex items-center gap-1.5 text-xs text-ink/40">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-400" />
+                    Saving…
+                  </span>
+                )}
                 {s.userSubmittedRating && savingId !== s.id && (
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                  <span className="badge animate-[fadeIn_0.25s_ease-out] bg-emerald-50 text-emerald-700">
                     You rated {s.userSubmittedRating}
                   </span>
                 )}

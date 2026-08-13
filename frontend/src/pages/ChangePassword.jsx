@@ -38,7 +38,7 @@ export default function ChangePassword() {
   };
 
   return (
-    <div className="mx-auto max-w-lg px-5 py-10">
+    <div className="mx-auto max-w-lg px-5 py-10 page-enter">
       <h1 className="font-display text-2xl font-semibold text-ink">Update password</h1>
       <p className="mt-1 text-sm text-ink/60">Keep your account secure with a strong password.</p>
 

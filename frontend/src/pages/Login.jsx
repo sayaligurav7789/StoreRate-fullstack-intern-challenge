@@ -39,7 +39,7 @@ export default function Login() {
           <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 font-display text-lg font-semibold text-white">
             S
           </span>
-          <h1 className="mt-4 font-display text-3xl font-semibold text-ink">Welcome back</h1>
+          <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink">Welcome back</h1>
           <p className="mt-1 text-sm text-ink/60">Sign in to rate and manage stores.</p>
         </div>
 

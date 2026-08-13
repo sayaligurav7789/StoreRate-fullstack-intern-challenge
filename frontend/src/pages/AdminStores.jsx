@@ -111,11 +111,11 @@ export default function AdminStores() {
   ];
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10">
+    <div className="mx-auto max-w-6xl px-5 py-10 page-enter">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="stamp-label">Administration</p>
-          <h1 className="mt-1 font-display text-3xl font-semibold text-ink">Stores</h1>
+          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-ink">Stores</h1>
         </div>
         <button className="btn-primary" onClick={openAdd}>
           + Add store
@@ -164,7 +164,7 @@ export default function AdminStores() {
           onSort={handleSort}
           emptyMessage="No stores match these filters."
           renderRow={(s) => (
-            <tr key={s.id} className="hover:bg-brand-50/50">
+            <tr key={s.id} className="table-row">
               <td className="px-4 py-3 font-medium text-ink">{s.name}</td>
               <td className="px-4 py-3 text-ink/70">{s.email}</td>
               <td className="max-w-xs truncate px-4 py-3 text-ink/70">{s.address}</td>

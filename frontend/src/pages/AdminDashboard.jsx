@@ -16,11 +16,11 @@ export default function AdminDashboard() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10">
+    <div className="mx-auto max-w-6xl px-5 py-10 page-enter">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <p className="stamp-label">Administration</p>
-          <h1 className="mt-1 font-display text-3xl font-semibold text-ink">Platform overview</h1>
+          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-ink">Platform overview</h1>
         </div>
         <div className="hidden gap-3 sm:flex">
           <Link to="/admin/users" className="btn-secondary">

@@ -51,7 +51,7 @@ export default function Signup() {
           <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600 font-display text-lg font-semibold text-white">
             S
           </span>
-          <h1 className="mt-4 font-display text-3xl font-semibold text-ink">Create your account</h1>
+          <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink">Create your account</h1>
           <p className="mt-1 text-sm text-ink/60">Join to rate the stores you visit.</p>
         </div>
 

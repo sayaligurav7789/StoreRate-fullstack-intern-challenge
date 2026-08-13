@@ -9,8 +9,10 @@ const ROLE_LABEL = {
 };
 
 function linkClass({ isActive }) {
-  return `px-3 py-2 rounded-lg text-sm font-medium transition ${
-    isActive ? 'bg-brand-600 text-white' : 'text-ink/70 hover:bg-brand-100/70 hover:text-ink'
+  return `relative px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+    isActive
+      ? 'bg-brand-600 text-white shadow-sm'
+      : 'text-ink/65 hover:bg-brand-100/70 hover:text-ink'
   }`;
 }
 
@@ -43,13 +45,13 @@ export default function Navbar() {
   links.push({ to: '/account/password', label: 'Password' });
 
   return (
-    <header className="sticky top-0 z-30 border-b border-brand-100 bg-brand-50/90 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-brand-100/80 bg-brand-50/85 shadow-[0_1px_0_rgba(15,20,32,0.02)] backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
-        <Link to="/" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 font-display text-base font-semibold text-white">
+        <Link to="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-80">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 font-display text-base font-semibold text-white shadow-sm">
             S
           </span>
-          <span className="font-display text-lg font-semibold text-ink">StoreRate</span>
+          <span className="font-display text-lg font-semibold tracking-tight text-ink">StoreRate</span>
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -71,7 +73,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="rounded-lg p-2 text-ink md:hidden"
+          className="rounded-lg p-2 text-ink transition-colors hover:bg-brand-100/70 md:hidden"
           onClick={() => setOpen((o) => !o)}
           aria-label="Toggle menu"
         >
@@ -82,7 +84,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-brand-100 bg-white px-5 py-3 md:hidden">
+        <div className="animate-[fadeInUp_0.2s_ease-out] border-t border-brand-100 bg-white px-5 py-3 md:hidden">
           <div className="mb-2">
             <p className="text-sm font-semibold text-ink">{user.name}</p>
             <p className="stamp-label">{ROLE_LABEL[user.role]}</p>

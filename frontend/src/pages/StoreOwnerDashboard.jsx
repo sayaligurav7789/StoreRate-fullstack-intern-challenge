@@ -19,7 +19,7 @@ export default function StoreOwnerDashboard() {
 
   if (error) {
     return (
-      <div className="mx-auto max-w-3xl px-5 py-10">
+      <div className="mx-auto max-w-3xl px-5 py-10 page-enter">
         <Alert type="error">{error}</Alert>
       </div>
     );
@@ -27,16 +27,16 @@ export default function StoreOwnerDashboard() {
 
   if (!data) {
     return (
-      <div className="mx-auto max-w-3xl px-5 py-10">
+      <div className="mx-auto max-w-3xl px-5 py-10 page-enter">
         <p className="stamp-label">Loading your store…</p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-10">
+    <div className="mx-auto max-w-4xl px-5 py-10 page-enter">
       <p className="stamp-label">Store owner</p>
-      <h1 className="mt-1 font-display text-3xl font-semibold text-ink">{data.store.name}</h1>
+      <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-ink">{data.store.name}</h1>
       <p className="mt-1 text-sm text-ink/60">{data.store.address}</p>
 
       <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -57,10 +57,10 @@ export default function StoreOwnerDashboard() {
       <div className="card overflow-hidden">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-brand-100 bg-brand-50/60">
-              <th className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-ink/60">Name</th>
-              <th className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-ink/60">Email</th>
-              <th className="px-4 py-3 font-mono text-[11px] uppercase tracking-wider text-ink/60">Rating</th>
+            <tr className="border-b border-brand-100 bg-brand-50/70">
+              <th className="px-4 py-3.5 font-mono text-[11px] uppercase tracking-wider text-ink/55">Name</th>
+              <th className="px-4 py-3.5 font-mono text-[11px] uppercase tracking-wider text-ink/55">Email</th>
+              <th className="px-4 py-3.5 font-mono text-[11px] uppercase tracking-wider text-ink/55">Rating</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-brand-100/70">
@@ -72,7 +72,7 @@ export default function StoreOwnerDashboard() {
               </tr>
             )}
             {data.raters.map((r) => (
-              <tr key={r.ratingId} className="hover:bg-brand-50/50">
+              <tr key={r.ratingId} className="table-row">
                 <td className="px-4 py-3 font-medium text-ink">{r.user.name}</td>
                 <td className="px-4 py-3 text-ink/70">{r.user.email}</td>
                 <td className="px-4 py-3">
