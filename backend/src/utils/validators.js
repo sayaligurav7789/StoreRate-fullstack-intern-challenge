@@ -41,6 +41,13 @@ const ratingValueRule = (field = 'value') =>
     .isInt({ min: 1, max: 5 })
     .withMessage('Rating value must be an integer between 1 and 5');
 
+const ratingCommentRule = (field = 'comment') =>
+  body(field)
+    .optional({ checkFalsy: true })
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage('Comment must be at most 500 characters');
+
 const idParamRule = (field = 'id') =>
   param(field).isInt({ min: 1 }).withMessage(`${field} must be a positive integer`);
 
@@ -62,6 +69,7 @@ module.exports = {
   passwordRule,
   roleRule,
   ratingValueRule,
+  ratingCommentRule,
   idParamRule,
   sortQueryRules,
 };
